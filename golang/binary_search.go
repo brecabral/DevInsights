@@ -5,11 +5,15 @@ import "fmt"
 func main(){
   list := []int{1,2,3,5}
   target := 1
-  result := binarySearch(list, target, 0, len(list)-1)
+  result := BinarySearch(list, target)
   fmt.Println(result)
 }
 
-func binarySearch(list []int, target, low, high int) int {
+func BinarySearch(list []int, target int) int {
+  return binarySearchRecur(list, target, 0, len(list)-1)
+}
+
+func binarySearchRecur(list []int, target, low, high int) int {
   if (low > high){
     return -1 // Base case: element not found
   }
@@ -19,8 +23,8 @@ func binarySearch(list []int, target, low, high int) int {
   if (list[mid] == target){
     return mid // Base case: element found
   }else if(list[mid] > target){
-    return binarySearch(list, target, low, mid-1) // Recur on the left half
+    return binarySearchRecur(list, target, low, mid-1) // Recur on the left half
   }else{
-    return binarySearch(list, target, mid+1, high) // Recur on the righ half
+    return binarySearchRecur(list, target, mid+1, high) // Recur on the righ half
   }
 }
