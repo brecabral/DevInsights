@@ -1,12 +1,42 @@
 package main
 
-import "fmt"
+import (
+  "fmt"
+  "net/http"
+  "strconv"
+  "strings"
+)
 
 func main(){
-  list := []int{1,2,3,5}
-  target := 1
-  result := BinarySearch(list, target)
-  fmt.Println(result)
+  http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+    // Get the list and target parameters from the URL
+    listParam := r.URL.Query().Get("list")
+    targetParam := r.URL.Query().Get("target")
+
+    // Convert listParam to a slice
+    listStr := strings.Split(listParam, ",")
+    var list []int
+    for _, str := range listStr {
+      num, err := strconv.Atoi(str)
+      if err != nil {
+        http.Error(w, "Invalid list parameter", http.StatusBadRequest)
+        return
+      }
+      list = append(list, num)
+    }
+
+    // Convert targetParam to an interger
+    target, err := strconv.Atoi(targetParam)
+    if err != nil {
+      http.Error(w, "Invalid target parameter", http.StatusBadRequest)
+      return
+    }
+
+    // Perform the binary search
+    result := BinarySearch(list, target)
+    fmt.Fprintf(w, "The position of the target request is: %d", result)
+  })
+  http.ListenAndServe(":8080", nil)
 }
 
 func BinarySearch(list []int, target int) int {
