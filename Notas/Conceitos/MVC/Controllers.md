@@ -1,0 +1,1 @@
+estrutura responsavel por controlar o acesso ao model
