@@ -36,18 +36,12 @@ func ExponetialSearch(arr []int, target int) int {
 	}
 
 	currentIndex := 1
-	for currentIndex < len(arr) {
-		if arr[currentIndex] == target {
-			return currentIndex
-		}
-		if arr[currentIndex] > target {
-			subArrIndex := BinarySearch(arr[int(currentIndex/2)+1:currentIndex], target)
-			if subArrIndex == -1 {
-				return -1
-			}
-			return subArrIndex + int(currentIndex/2) + 1
-		}
+	for (currentIndex < len(arr)) && (arr[currentIndex] < target) {
 		currentIndex *= 2
+	}
+
+	if arr[currentIndex] == target {
+		return currentIndex
 	}
 
 	subArrIndex := BinarySearch(arr[int(currentIndex/2)+1:], target)
