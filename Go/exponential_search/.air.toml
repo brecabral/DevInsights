@@ -1,0 +1,21 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go test ./..."
+  delay = 1000
+
+  exclude_dir = ["tmp", "vendor", "node_modules"]
+  exclude_file = []
+  exclude_regex = [".*_templ.go"]
+
+  include_ext = ["go"]
+
+  autostart = false
+
+[log]
+  time = true
+  main_only = false
+
+[misc]
+  force_bin_mode = false
