@@ -1,2 +1,4 @@
 *.gif
 teste*
+.vscode
+*tmp
